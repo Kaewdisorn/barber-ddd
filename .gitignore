@@ -1,0 +1,152 @@
+# ==================== #
+#   COMPILED OUTPUT    #
+# ==================== #
+/dist
+/build
+/out
+/.next
+/.nuxt
+/.output
+/.svelte-kit
+
+# ==================== #
+#   DEPENDENCIES      #
+# ==================== #
+/node_modules/
+/.pnpm-store/
+/jspm_packages/
+/web_modules/
+/bower_components/
+
+# ==================== #
+#   CACHE & TEMP      #
+# ==================== #
+/.cache/
+/.temp/
+/.tmp/
+/.npm
+/.eslintcache
+/.stylelintcache
+*.tmp
+*.temp
+
+# ==================== #
+#   LOGS              #
+# ==================== #
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+*.log.*
+
+# ==================== #
+#   COVERAGE & TESTS  #
+# ==================== #
+/coverage/
+/.nyc_output
+/.jest
+/.vitest
+/.cypress
+/cypress/videos/
+/cypress/screenshots/
+
+# ==================== #
+#   ENVIRONMENT       #
+# ==================== #
+.env
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.staging.local
+.docker.env
+
+# ==================== #
+#   OS SPECIFIC       #
+# ==================== #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ==================== #
+#   IDE & EDITORS     #
+# ==================== #
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/workspace.json
+
+# IntelliJ
+/.idea/
+*.iml
+*.ipr
+*.iws
+
+# Others
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ==================== #
+#   RUNTIME DATA      #
+# ==================== #
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ==================== #
+#   PACKAGE MANAGER   #
+# ==================== #
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+shrinkwrap.json
+
+# ==================== #
+#   BUILD TOOLS       #
+# ==================== #
+/.parcel-cache
+/.rollup.cache
+/.turbo
+/.rpt2_cache/
+/.rts2_cache_cjs/
+/.rts2_cache_es/
+/.rts2_cache_umd/
+
+# ==================== #
+#   MISCELLANEOUS     #
+# ==================== #
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Docker
+docker-compose.override.yml
+
+# Storybook
+/storybook-static
+
+# Misc
+/.yarn
+/.pnp.*
