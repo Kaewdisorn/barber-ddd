@@ -1,0 +1,46 @@
+- [ ] Initialize NestJS project with TypeScript strict mode enabled
+- [ ] Configure ESLint, Prettier, and consistent kebab-case file naming checks
+- [ ] Create bounded context folders for booking, barber, and customer
+- [ ] Define domain layer structure with aggregates, entities, value objects, domain events, and domain exceptions
+- [ ] Keep domain code free from NestJS, Prisma, HTTP, and infrastructure imports
+- [ ] Implement Booking aggregate with TimeSlot value object and booking lifecycle rules
+- [ ] Implement Barber aggregate with Service entity, Schedule value object, and Price value object
+- [ ] Implement Customer aggregate with Phone value object and customer identity rules
+- [ ] Add domain events for BookingCreated, BookingConfirmed, and BookingCancelled
+- [ ] Create application use cases with one public execute method per file
+- [ ] Define command and result DTOs for each use case
+- [ ] Define repository ports in application/ports with string injection tokens beside each port
+- [ ] Implement Prisma repository adapters in infrastructure/persistence
+- [ ] Add explicit mappers between Prisma models and domain aggregates
+- [ ] Ensure controllers only validate requests and delegate to use cases
+- [ ] Add class-validator and class-transformer DTO validation for every HTTP input
+- [ ] Configure ConfigService with useFactory and remove all hardcoded environment values
+- [ ] Add environment validation for database, JWT, server, and runtime configuration
+- [ ] Configure PostgreSQL connection pooling for scalable request volume
+- [ ] Design Prisma schema with indexes for booking date, barber availability, customer lookup, and unique scheduling constraints
+- [ ] Add database migrations and document migration workflow
+- [ ] Enforce transactional consistency for booking creation, confirmation, cancellation, and schedule updates
+- [ ] Add optimistic concurrency or locking for overlapping appointment prevention
+- [ ] Add pagination, filtering, and stable sorting for list endpoints
+- [ ] Add request timeout, payload size limit, and rate limiting safeguards
+- [ ] Implement JWT authentication with secure secret loading and token expiration
+- [ ] Add authorization policies for customer, barber, and admin actions
+- [ ] Hash and salt any stored credentials with a modern password hashing algorithm
+- [ ] Prevent sensitive data from being returned by controllers or logged by the application
+- [ ] Add centralized error handling that maps DomainException to safe HTTP responses
+- [ ] Add structured application logging with correlation IDs
+- [ ] Add health checks for API, database, and required external dependencies
+- [ ] Add unit tests for aggregates, value objects, and domain rules
+- [ ] Add use case tests with mocked repository ports
+- [ ] Add repository integration tests against a test PostgreSQL database
+- [ ] Add controller e2e tests with Supertest
+- [ ] Add tests for security-sensitive flows including auth, authorization, validation, and booking conflicts
+- [ ] Add CI pipeline for linting, type checking, tests, and Prisma migration checks
+- [ ] Add dependency vulnerability scanning and keep lockfile updates reviewed
+- [ ] Add API documentation with validated request and response examples
+- [ ] Document architecture boundaries and dependency direction in the README
+- [ ] Document local development setup, environment variables, and database bootstrap steps
+- [ ] Add seed data for local development without real customer or credential data
+- [ ] Add graceful shutdown handling for NestJS and Prisma
+- [ ] Add backup and restore plan for PostgreSQL production data
+- [ ] Review all modules for scalability, maintainability, and security before first release
