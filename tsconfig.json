@@ -1,25 +1,78 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    // Module Configuration
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
-    "sourceMap": true,
+    
+    // Output Configuration
     "outDir": "./dist",
-    "baseUrl": "./",
+    "declaration": true, 
+    "sourceMap": true,
+    "removeComments": true,
     "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    
+    // Language & Environment
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    
+    // Decorator Support (Essential for NestJS)
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    
+    // Strict Type Checking
+    "strict": true,
     "noImplicitAny": true,
+    "strictNullChecks": true,
     "strictBindCallApply": true,
-    "noFallthroughCasesInSwitch": true
-  }
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": false, // Disabled for NestJS dependency injection
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    
+    // Additional Checks
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+    
+    // Module Resolution
+    // "baseUrl": "./",
+    // "paths": {
+    //   "@/*": ["src/*"],
+    //   "@test/*": ["test/*"]
+    // },
+    
+    // Project References
+    "composite": true,
+    
+    // Advanced
+    "skipLibCheck": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "useDefineForClassFields": true
+  },
+  "include": [
+    "src/**/*",
+    "test/**/*",
+    "**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build",
+    "coverage",
+    "*.js",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/__tests__/**",
+    "**/__mocks__/**"
+  ]
 }
