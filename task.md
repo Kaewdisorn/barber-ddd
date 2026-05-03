@@ -11,18 +11,27 @@
 ```
 prisma/
   schema.prisma                                               ← NEW
+
 src/
   shared/
     domain/
-      domain-exception.ts                                     ← NEW
-      domain-event.ts                                         ← NEW
       aggregate-root.ts                                       ← NEW
+      domain-event.ts                                         ← NEW
+      domain-exception.ts                                     ← NEW
     infrastructure/
       prisma/
         prisma.service.ts                                     ← NEW
         prisma.module.ts                                      ← NEW
       filters/
         domain-exception.filter.ts                            ← NEW
+      interceptors/
+        logging.interceptor.ts                                ← NEW
+    shared.module.ts                                          ← NEW
+
+  config/
+    env.validation.ts                                         ← NEW
+    database.config.ts                                        ← NEW
+
   customer/
     domain/
       exceptions/
@@ -34,34 +43,72 @@ src/
         customer-registered.event.ts                          ← NEW
       aggregates/
         customer.aggregate.ts                                 ← NEW
+      customer.aggregate.spec.ts                              ← NEW
+
     application/
       ports/
         customer-repository.port.ts                           ← NEW
         password-hasher.port.ts                               ← NEW
-        token-generator.port.ts                               ← NEW
-      dtos/
-        register-customer.command.ts                          ← NEW
-        login-customer.command.ts                             ← NEW
       use-cases/
-        register-customer.use-case.ts                         ← NEW
-        login-customer.use-case.ts                            ← NEW
+        commands/
+          register-customer.command.ts                        ← NEW
+          login-customer.command.ts                           ← NEW
+        queries/
+          get-customer.query.ts                               ← NEW
+        handlers/
+          register-customer.handler.ts                        ← NEW
+          login-customer.handler.ts                           ← NEW
+          get-customer.handler.ts                             ← NEW
+      dtos/
+        register-customer.dto.ts                              ← NEW
+        login-customer.dto.ts                                 ← NEW
+        customer-response.dto.ts                              ← NEW
+
+    presentation/
+      controllers/
+        customer.controller.ts                                ← MOVED from infrastructure/http
+      dtos/
+        register-customer-request.dto.ts                      ← MOVED from infrastructure/http
+        login-customer-request.dto.ts                         ← MOVED from infrastructure/http
+        register-customer-response.dto.ts                     ← NEW
+      guards/
+        auth.guard.ts                                         ← NEW
+      decorators/
+        current-customer.decorator.ts                         ← NEW
+
     infrastructure/
       persistence/
         customer.mapper.ts                                    ← NEW
         prisma-customer.repository.ts                         ← NEW
       auth/
         bcrypt-password-hasher.ts                             ← NEW
-        jwt-token-generator.ts                                ← NEW
-      http/
-        dtos/
-          register-customer-request.dto.ts                    ← NEW
-          login-customer-request.dto.ts                       ← NEW
-        controllers/
-          customer.controller.ts                              ← NEW
+        jwt-token-generator.ts                                ← MOVED (token concern belongs in auth context)
+
     customer.module.ts                                        ← NEW
+
+  auth/
+    application/
+      ports/
+        token-generator.port.ts                               ← MOVED from customer/application/ports
+      use-cases/
+        handlers/
+          issue-token.handler.ts                              ← NEW
+    infrastructure/
+      jwt-token-generator.ts                                  ← NEW
+    auth.module.ts                                            ← NEW
+
   app.module.ts                                               ← MODIFY
   main.ts                                                     ← MODIFY
+
+tests/
+  integration/
+    customer/
+      register-customer.integration.spec.ts                   ← NEW
+  e2e/
+    customer.e2e-spec.ts                                      ← NEW
+
 .env.example                                                  ← NEW
+.env.test.example                                             ← NEW
 ```
 
 ---
