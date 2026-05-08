@@ -522,7 +522,7 @@ export interface IPasswordHasher {
 }
 ```
 
-**File:** `src/customer/application/ports/token-generator.port.ts`
+**File:** `src/auth/application/ports/token-generator.port.ts`
 
 ```ts
 export const TOKEN_GENERATOR = 'TOKEN_GENERATOR';
@@ -537,7 +537,7 @@ export interface ITokenGenerator {
 }
 ```
 
-**File:** `src/customer/application/dtos/register-customer.command.ts`
+**File:** `src/customer/application/use-cases/commands/register-customer.command.ts`
 
 ```ts
 export interface RegisterCustomerCommand {
@@ -554,7 +554,7 @@ export interface RegisterCustomerResult {
 }
 ```
 
-**File:** `src/customer/application/dtos/login-customer.command.ts`
+**File:** `src/customer/application/use-cases/commands/login-customer.command.ts`
 
 ```ts
 export interface LoginCustomerCommand {
@@ -568,7 +568,7 @@ export interface LoginCustomerResult {
 }
 ```
 
-**File:** `src/customer/application/use-cases/register-customer.use-case.ts`
+**File:** `src/customer/application/use-cases/handlers/register-customer.handler.ts`
 
 ```ts
 import { Inject } from '@nestjs/common';
@@ -576,19 +576,19 @@ import { randomUUID } from 'crypto';
 import {
   CUSTOMER_REPOSITORY,
   ICustomerRepository,
-} from '../ports/customer-repository.port';
+} from '../../ports/customer-repository.port';
 import {
   PASSWORD_HASHER,
   IPasswordHasher,
-} from '../ports/password-hasher.port';
+} from '../../ports/password-hasher.port';
 import {
   RegisterCustomerCommand,
   RegisterCustomerResult,
-} from '../dtos/register-customer.command';
-import { Customer } from '../../domain/aggregates/customer.aggregate';
-import { EmailAlreadyTakenException } from '../../domain/exceptions/customer.exceptions';
+} from '../commands/register-customer.command';
+import { Customer } from '../../../domain/aggregates/customer.aggregate';
+import { EmailAlreadyTakenException } from '../../../domain/exceptions/customer.exceptions';
 
-export class RegisterCustomerUseCase {
+export class RegisterCustomerHandler {
   constructor(
     @Inject(CUSTOMER_REPOSITORY)
     private readonly customerRepository: ICustomerRepository,
@@ -626,29 +626,29 @@ export class RegisterCustomerUseCase {
 }
 ```
 
-**File:** `src/customer/application/use-cases/login-customer.use-case.ts`
+**File:** `src/customer/application/use-cases/handlers/login-customer.handler.ts`
 
 ```ts
 import { Inject } from '@nestjs/common';
 import {
   CUSTOMER_REPOSITORY,
   ICustomerRepository,
-} from '../ports/customer-repository.port';
+} from '../../ports/customer-repository.port';
 import {
   PASSWORD_HASHER,
   IPasswordHasher,
-} from '../ports/password-hasher.port';
+} from '../../ports/password-hasher.port';
 import {
   TOKEN_GENERATOR,
   ITokenGenerator,
-} from '../ports/token-generator.port';
+} from '../../../../auth/application/ports/token-generator.port';
 import {
   LoginCustomerCommand,
   LoginCustomerResult,
-} from '../dtos/login-customer.command';
-import { InvalidCredentialsException } from '../../domain/exceptions/customer.exceptions';
+} from '../commands/login-customer.command';
+import { InvalidCredentialsException } from '../../../domain/exceptions/customer.exceptions';
 
-export class LoginCustomerUseCase {
+export class LoginCustomerHandler {
   constructor(
     @Inject(CUSTOMER_REPOSITORY)
     private readonly customerRepository: ICustomerRepository,
@@ -795,7 +795,7 @@ export class BcryptPasswordHasher implements IPasswordHasher {
 }
 ```
 
-**File:** `src/customer/infrastructure/auth/jwt-token-generator.ts`
+**File:** `src/auth/infrastructure/jwt-token-generator.ts`
 
 ```ts
 import { Injectable } from '@nestjs/common';
@@ -803,7 +803,7 @@ import { JwtService } from '@nestjs/jwt';
 import {
   ITokenGenerator,
   TokenPayload,
-} from '../../application/ports/token-generator.port';
+} from '../application/ports/token-generator.port';
 
 @Injectable()
 export class JwtTokenGenerator implements ITokenGenerator {
@@ -815,7 +815,7 @@ export class JwtTokenGenerator implements ITokenGenerator {
 }
 ```
 
-**File:** `src/customer/infrastructure/http/dtos/register-customer-request.dto.ts`
+**File:** `src/customer/presentation/dtos/register-customer-request.dto.ts`
 
 ```ts
 import {
@@ -848,7 +848,7 @@ export class RegisterCustomerRequestDto {
 }
 ```
 
-**File:** `src/customer/infrastructure/http/dtos/login-customer-request.dto.ts`
+**File:** `src/customer/presentation/dtos/login-customer-request.dto.ts`
 
 ```ts
 import { IsEmail, IsString, MinLength } from 'class-validator';
@@ -863,22 +863,22 @@ export class LoginCustomerRequestDto {
 }
 ```
 
-**File:** `src/customer/infrastructure/http/controllers/customer.controller.ts`
+**File:** `src/customer/presentation/controllers/customer.controller.ts`
 
 ```ts
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { RegisterCustomerUseCase } from '../../../application/use-cases/register-customer.use-case';
-import { LoginCustomerUseCase } from '../../../application/use-cases/login-customer.use-case';
+import { RegisterCustomerHandler } from '../../../application/use-cases/handlers/register-customer.handler';
+import { LoginCustomerHandler } from '../../../application/use-cases/handlers/login-customer.handler';
 import { RegisterCustomerRequestDto } from '../dtos/register-customer-request.dto';
 import { LoginCustomerRequestDto } from '../dtos/login-customer-request.dto';
-import { RegisterCustomerResult } from '../../../application/dtos/register-customer.command';
-import { LoginCustomerResult } from '../../../application/dtos/login-customer.command';
+import { RegisterCustomerResult } from '../../../application/use-cases/commands/register-customer.command';
+import { LoginCustomerResult } from '../../../application/use-cases/commands/login-customer.command';
 
 @Controller('customers')
 export class CustomerController {
   constructor(
-    private readonly registerCustomer: RegisterCustomerUseCase,
-    private readonly loginCustomer: LoginCustomerUseCase,
+    private readonly registerCustomer: RegisterCustomerHandler,
+    private readonly loginCustomer: LoginCustomerHandler,
   ) {}
 
   @Post('register')
@@ -917,15 +917,15 @@ export class CustomerController {
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { CustomerController } from './infrastructure/http/controllers/customer.controller';
-import { RegisterCustomerUseCase } from './application/use-cases/register-customer.use-case';
-import { LoginCustomerUseCase } from './application/use-cases/login-customer.use-case';
+import { CustomerController } from './presentation/controllers/customer.controller';
+import { RegisterCustomerHandler } from './application/use-cases/handlers/register-customer.handler';
+import { LoginCustomerHandler } from './application/use-cases/handlers/login-customer.handler';
 import { CUSTOMER_REPOSITORY } from './application/ports/customer-repository.port';
 import { PASSWORD_HASHER } from './application/ports/password-hasher.port';
-import { TOKEN_GENERATOR } from './application/ports/token-generator.port';
+import { TOKEN_GENERATOR } from '../auth/application/ports/token-generator.port';
 import { PrismaCustomerRepository } from './infrastructure/persistence/prisma-customer.repository';
 import { BcryptPasswordHasher } from './infrastructure/auth/bcrypt-password-hasher';
-import { JwtTokenGenerator } from './infrastructure/auth/jwt-token-generator';
+import { JwtTokenGenerator } from '../auth/infrastructure/jwt-token-generator';
 
 @Module({
   imports: [
@@ -940,8 +940,8 @@ import { JwtTokenGenerator } from './infrastructure/auth/jwt-token-generator';
   ],
   controllers: [CustomerController],
   providers: [
-    RegisterCustomerUseCase,
-    LoginCustomerUseCase,
+    RegisterCustomerHandler,
+    LoginCustomerHandler,
     { provide: CUSTOMER_REPOSITORY, useClass: PrismaCustomerRepository },
     { provide: PASSWORD_HASHER, useClass: BcryptPasswordHasher },
     { provide: TOKEN_GENERATOR, useClass: JwtTokenGenerator },
