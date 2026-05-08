@@ -44,11 +44,13 @@
     "forceConsistentCasingInFileNames": true,
     
     // Module Resolution
-    // "baseUrl": "./",
-    // "paths": {
-    //   "@/*": ["src/*"],
-    //   "@test/*": ["test/*"]
-    // },
+    "paths": {
+      "@customerModule/*": ["./src/modules/customer/*"],
+      // "@modules/*":      ["./src/modules/*"],
+      // "@application/*": ["./src/modules/customer/application/*"],
+      // "@shared/*":       ["./src/shared/*"],
+      // "@auth/*":         ["./src/auth/*"]
+    },
     
     // Project References
     "composite": true,
