@@ -571,7 +571,7 @@ export interface LoginCustomerResult {
 **File:** `src/customer/application/use-cases/handlers/register-customer.handler.ts`
 
 ```ts
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import {
   CUSTOMER_REPOSITORY,
@@ -588,6 +588,7 @@ import {
 import { Customer } from '../../../domain/aggregates/customer.aggregate';
 import { EmailAlreadyTakenException } from '../../../domain/exceptions/customer.exceptions';
 
+@Injectable()
 export class RegisterCustomerHandler {
   constructor(
     @Inject(CUSTOMER_REPOSITORY)
@@ -629,7 +630,7 @@ export class RegisterCustomerHandler {
 **File:** `src/customer/application/use-cases/handlers/login-customer.handler.ts`
 
 ```ts
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import {
   CUSTOMER_REPOSITORY,
   ICustomerRepository,
@@ -648,6 +649,7 @@ import {
 } from '../commands/login-customer.command';
 import { InvalidCredentialsException } from '../../../domain/exceptions/customer.exceptions';
 
+@Injectable()
 export class LoginCustomerHandler {
   constructor(
     @Inject(CUSTOMER_REPOSITORY)
