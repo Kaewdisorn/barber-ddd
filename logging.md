@@ -150,12 +150,7 @@ Replace NestJS `Logger` with the injected Winston logger so domain errors emit s
 **File:** `src/shared/infrastructure/filters/domain-exception.filter.ts`
 
 ```ts
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  Inject,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, Inject } from '@nestjs/common';
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston';
 import { Response, Request } from 'express';
 import { Logger } from 'winston';
@@ -304,6 +299,7 @@ src/
 ## Log Output Examples
 
 **Successful request (JSON, production):**
+
 ```json
 {
   "level": "info",
@@ -318,6 +314,7 @@ src/
 ```
 
 **Domain exception (JSON, production):**
+
 ```json
 {
   "level": "warn",
