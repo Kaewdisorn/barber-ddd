@@ -46,6 +46,7 @@
     // Module Resolution
     "paths": {
       "@customerModule/*": ["./src/modules/customer/*"],
+      "@shared/*":       ["./src/shared/*"],
       // "@modules/*":      ["./src/modules/*"],
       // "@application/*": ["./src/modules/customer/application/*"],
       // "@shared/*":       ["./src/shared/*"],
