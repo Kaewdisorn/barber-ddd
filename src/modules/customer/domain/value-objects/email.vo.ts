@@ -1,7 +1,7 @@
-export class Email {
-  private readonly _value: string;
+// export class Email {
+//   private readonly _value: string;
 
-  private constructor(value: string) {
-    this._value = value;
-  }
-}
+//   private constructor(value: string) {
+//     this._value = value;
+//   }
+// }
