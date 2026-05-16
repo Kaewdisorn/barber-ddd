@@ -1,5 +1,8 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
-import { RegisterCustomerResult } from '@customerModule/application/use-cases/commands/register-customer.command';
+import {
+  RegisterCustomerResult,
+  RegisterCustomerCommand,
+} from '@customerModule/application/use-cases/commands/register-customer.command';
 import { RegisterCustomerRequestDto } from '@customerModule/presentation/dtos/register-customer-request.dto';
 import { RegisterCustomerHandler } from '@customerModule/application/use-cases/handlers/register-customer.handler';
 
@@ -12,11 +15,13 @@ export class CustomerController {
   async register(
     @Body() dto: RegisterCustomerRequestDto,
   ): Promise<RegisterCustomerResult> {
-    return this.registerCustomer.execute({
+    const registerCmd: RegisterCustomerCommand = {
       name: dto.name,
       email: dto.email,
       phone: dto.phone,
       password: dto.password,
-    });
+    };
+
+    return this.registerCustomer.execute(registerCmd);
   }
 }
