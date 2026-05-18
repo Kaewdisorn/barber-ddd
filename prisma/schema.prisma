@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  schemas  = ["barber"]
 }
 
 model Customer {
@@ -16,4 +17,5 @@ model Customer {
   updatedAt    DateTime @updatedAt
 
   @@index([email])
+  @@schema("barber")
 }
