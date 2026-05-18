@@ -132,11 +132,6 @@ shrinkwrap.json
 /.rts2_cache_umd/
 
 # ==================== #
-#   PRISMA GENERATED  #
-# ==================== #
-/src/generated/
-
-# ==================== #
 #   MISCELLANEOUS     #
 # ==================== #
 # Diagnostic reports
