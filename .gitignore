@@ -116,7 +116,6 @@ pids/
 # ==================== #
 #   PACKAGE MANAGER   #
 # ==================== #
-package-lock.json
 yarn.lock
 pnpm-lock.yaml
 shrinkwrap.json
@@ -131,6 +130,11 @@ shrinkwrap.json
 /.rts2_cache_cjs/
 /.rts2_cache_es/
 /.rts2_cache_umd/
+
+# ==================== #
+#   PRISMA GENERATED  #
+# ==================== #
+/src/generated/
 
 # ==================== #
 #   MISCELLANEOUS     #
